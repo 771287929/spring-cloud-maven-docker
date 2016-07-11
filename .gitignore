@@ -1,0 +1,17 @@
+bin/
+build/
+.gradle/
+.classpath
+.project
+.metadata/
+.recommenders
+.settings/
+RemoteSystemsTempFiles/
+Servers/
+.idea/
+MANIFEST.MF
+META-INF/
+*.log
+/classes/*
+classes/*
+target/
