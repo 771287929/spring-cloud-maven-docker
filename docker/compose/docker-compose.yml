@@ -1,35 +1,51 @@
-#hystrix:
-#  image: zhouwei/hystrix-dashboard
-#  ports:
-#   - "7979:7979"
-#  links:
-#   - gateway
-#   - discovery
-#discovery:
-#  image: zhouwei/eureka-service
-#  ports:
-#   - "8761:8761"
+hystrix:
+  image: zhouwei/hystrix-dashboard
+  ports:
+   - "7979:7979"
+  links:
+   - gateway
+   - discovery
+discovery:
+  image: zhouwei/eureka-service
+  ports:
+   - "8761:8761"
 configserver:
   image: zhouwei/config-service
   ports:
    - "8888:8888"
-#  links:
-#   - discovery
-#gateway:
-#  image: zhouwei/api-gateway-service
-#  ports:
-#   - "10000:10000"
-#  links:
-#   - discovery
-#   - configserver
-#   - simpleserver
+  links:
+   - discovery
+gateway:
+  image: zhouwei/api-gateway-service
+  ports:
+   - "10000:10000"
+  links:
+   - discovery
+   - configserver
+   - simpleserver
+   - simpleserverui
+   - simpleui
 simpleserver:
   image: zhouwei/simple-service
   ports:
-   - "8080:8080"
+   - "8088:8088"
   links:
-#   - discovery
+   - discovery
    - configserver
+simpleserverui:
+  image: zhouwei/simple-service-ui
+  ports:
+   - "8090:8090"
+  links:
+   - discovery
+   - configserver
+simpleui:
+  image: zhouwei/simple-ui
+  ports:
+   - "8089:8089"
+  links:
+   - discovery
+   - configserver   
 #movie:
 #  image: kbastani/movie-microservice
 #  links:
