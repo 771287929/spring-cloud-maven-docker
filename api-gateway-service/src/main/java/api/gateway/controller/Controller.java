@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.gateway.command.CommandHttpCall;
+import api.gateway.service.FeignUserService;
 import api.gateway.service.UserService;
 import api.gateway.util.Constant;
 import rx.Observable;
@@ -19,7 +20,9 @@ import rx.Observer;
 public class Controller {
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	@Autowired
+	private FeignUserService feignUserService;
 
     @RequestMapping("/google")
     public String getGoogle(){
@@ -94,7 +97,7 @@ public class Controller {
     public String getFutureUi1() throws InterruptedException {
 
         try {
-            Future<String> countriesSyncCall = new CommandHttpCall(Constant.SERVICE_UI_NAME,true).queue();
+            Future<String> countriesSyncCall = new CommandHttpCall(Constant.SERVICE_UI_NAME_HTTP,true).queue();
             String result=countriesSyncCall.get();
             System.out.println("sync get countries" + result);
             return result;
@@ -107,7 +110,7 @@ public class Controller {
     @RequestMapping("/showuser1")
     public String getFutureUser1() throws InterruptedException {
 
-    	Future<String> userSyncCall = new CommandHttpCall(Constant.SERVICE_NAME+"user",true).queue();
+    	Future<String> userSyncCall = new CommandHttpCall(Constant.SERVICE_NAME_HTTP+"user",true).queue();
         try {
             String user = userSyncCall.get();
             return user;
@@ -122,6 +125,18 @@ public class Controller {
     public String getFutureUser2() throws InterruptedException {
         try {
             String user = userService.readUserInfo();
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    @RequestMapping("/showuser3")
+    public String getFutureUser3() throws InterruptedException {
+        try {
+            String user = feignUserService.readUserInfo();
             return user;
         } catch (Exception e) {
             e.printStackTrace();
