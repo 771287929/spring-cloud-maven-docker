@@ -9,7 +9,7 @@ logging:
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://192.168.1.190:3306/test
+        url: jdbc:mysql://192.168.1.188:3306/test
         username: root
         password: 111
         # 使用druid数据源
