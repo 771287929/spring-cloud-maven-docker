@@ -18,9 +18,9 @@ zuul:
     simpleserver:
       path: /simple-service/**
       url: http://simpleserver:8088/
-    simpleui:
-      path: /simple-ui/**
-      url: http://simpleui:8089/
+#    simpleui:
+#      path: /simple-ui/**
+#      url: http://simpleui:8089/
     simpleserverui:
       path: /simple-service-ui/**
       url: http://simpleserverui:8090/

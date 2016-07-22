@@ -1,7 +1,5 @@
 package hystrix.dashboard;
 
-import hystrix.dashboard.stream.MockStreamServlet;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -32,11 +30,6 @@ public class HystrixDashboardApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(HystrixDashboardApplication.class).web(true).run(args);
-    }
-
-    @Bean
-    public ServletRegistrationBean mockStreamServlet() {
-        return new ServletRegistrationBean(new MockStreamServlet(), "/mock.stream");
     }
 
 }

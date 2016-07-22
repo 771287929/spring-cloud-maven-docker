@@ -2,12 +2,19 @@ discovery:
   image: zhouwei/eureka-service
   ports:
    - "8761:8761"
+monitoradmin:
+  image: zhouwei/monitor-admin-server
+  ports:
+   - "9090:9090"
+  links:
+   - discovery 
 configserver:
   image: zhouwei/config-service
   ports:
    - "8888:8888"
   links:
    - discovery
+   - monitoradmin
 hystrix:
   image: zhouwei/hystrix-dashboard
   ports:
@@ -21,16 +28,18 @@ gateway:
    - "10000:10000"
   links:
    - discovery
+   - monitoradmin
    - configserver
    - simpleserver
    - simpleserverui
-   - simpleui
+#   - simpleui
 simpleserver:
   image: zhouwei/simple-service
   ports:
    - "8088:8088"
   links:
    - discovery
+   - monitoradmin
    - configserver
 simpleserverui:
   image: zhouwei/simple-service-ui
@@ -38,14 +47,16 @@ simpleserverui:
    - "8090:8090"
   links:
    - discovery
+   - monitoradmin
    - configserver
-simpleui:
-  image: zhouwei/simple-ui
-  ports:
-   - "8089:8089"
-  links:
-   - discovery
-   - configserver   
+#simpleui:
+#  image: zhouwei/simple-ui
+#  ports:
+#   - "8089:8089"
+#  links:
+#   - discovery
+#   - monitoradmin
+#   - configserver   
 #movie:
 #  image: kbastani/movie-microservice
 #  links:

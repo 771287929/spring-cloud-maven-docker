@@ -35,14 +35,17 @@ spring:
     freemarker:
         cache: false
         request-context-attribute: request
+    boot:
+        admin:
+            url: http://monitoradmin:9090
  
 eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
   instance:
-    preferIpAddress: true
-
+    preferIpAddress: false
+      
 ribbon:
   eureka:
     enabled: true        
